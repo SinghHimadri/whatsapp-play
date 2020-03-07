@@ -26,6 +26,9 @@ async def my_script(target):
 from wplay.utils.helpers import whatsapp_selectors_dict
 # endregion
 
+import logger
+
+logger = logging.getLogger(__name__)
 
 # region FOR SCRIPTING
 async def search_and_select_target(page, target, hide_groups=False):
@@ -68,6 +71,7 @@ async def __open_new_chat(page):
 
 async def __type_in_new_chat_search_bar(page, target):
     print(f'Looking for: {target}')
+    logger.info('Searching Targets')
     await page.waitForSelector(
         whatsapp_selectors_dict['search_contact_input_new_chat'],
         visible=True
@@ -90,6 +94,7 @@ async def __get_contacts_elements_filtered(page, target):
         )
     except:
         print(f'No contact named by "{target}"!')
+        
     return contact_list_elements_unchecked
 
 
@@ -111,6 +116,7 @@ async def __get_groups_elements_filtered(page, target, hide_groups=False):
         )
     except:
         print(f'No group named by "{target}"!')
+
     return group_list_elements_unchecked
 
 
@@ -119,6 +125,7 @@ async def __get_contacts_titles_from_elements_unchecked(page, contact_list_eleme
     for i in range(len(contact_list_elements_unchecked)):
         contact_titles_unchecked.append(await page.evaluate(f'document.querySelectorAll("{whatsapp_selectors_dict["contact_list_elements_filtered_new_chat"]}")[{i}].getAttribute("title")'))
     return contact_titles_unchecked
+
 
 
 async def __get_groups_titles_from_elements_unchecked(page, group_list_elements_unchecked):
@@ -135,9 +142,11 @@ def __zip_contact_titles_and_elements_unchecked(contact_titles_unchecked, contac
     return contact_list_unchecked
 
 
+
 def __zip_group_titles_and_elements_unchecked(group_titles_unchecked, group_list_elements_unchecked):
     group_list_unchecked = list(zip(group_titles_unchecked, group_list_elements_unchecked))
     return group_list_unchecked
+
 
 
 # __checking_contact_list verify if target is in title, if not we pop from list
