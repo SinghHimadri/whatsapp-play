@@ -12,9 +12,11 @@ virtualenv:
 install:
   - pip install -r requirements.txt
   - python setup.py install
+  - pip install coverage
 
 script:
   - python3 -m unittest discover -s tests
 
 after_success:
   - codecov
+  - bash <(curl -s https://codecov.io/bash)
