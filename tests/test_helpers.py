@@ -18,7 +18,7 @@ class testPath(unittest.TestCase):
         self.assertTrue(path.exists(logs_path))
         self.assertTrue(path.exists(log_file_path))
         self.assertTrue(path.exists(test_log_file_path))
-        self.assertTrue(path.exists(user_data_folder_path))
+        #self.assertTrue(path.exists(user_data_folder_path))
         self.assertTrue(path.exists(profile_photos_path))
         self.assertTrue(path.exists(tracking_folder_path))
 
